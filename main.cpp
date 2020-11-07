@@ -39,7 +39,6 @@ int main()
 
 int maxHourGlass(vector<vector<int>> glasses) {
     int sums[4][4] = {0};
-    int max = 0;
 
     sums[0][0] = glassTotal(glasses, 0, 0, 3, 3);
     sums[0][1] = glassTotal(glasses, 0, 1, 4, 3);
@@ -61,9 +60,8 @@ int maxHourGlass(vector<vector<int>> glasses) {
     sums[3][2] = glassTotal(glasses, 3, 2, 5, 6);
     sums[3][3] = glassTotal(glasses, 3, 3, 6, 6);
 
-    max = largest(sums);
+    return largest(sums);
 
-    return max;
 }
 
 int glassTotal(vector<vector<int>> matrix, int p, int q, int r, int d) {
@@ -86,7 +84,7 @@ int glassTotal(vector<vector<int>> matrix, int p, int q, int r, int d) {
 int largest(int matrix[][4]) {
     int maxGlass = matrix[0][0];
     for (int row = 0; row < 4; row++) {
-        for (int col = 1; col < 4; col++)
+        for (int col = 0; col < 4; col++)
             if (maxGlass < matrix[row][col])
                 maxGlass = matrix[row][col];
     }
