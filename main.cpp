@@ -1,3 +1,5 @@
+// computes maximum hour glass in matrix
+// by Caleb Anderson
 #include <iostream>
 #include <vector>
 /*
@@ -53,15 +55,15 @@ int maxHourGlass(vector<vector<int>> glasses) {
 
 int glassTotal(vector<vector<int>> matrix, int p, int q, int r, int d) {
     int value = 0, a = 0;
-    for (int i = p; i < r; i++) {
+    for (int i = p; i < r; i++) {           // iterate row
         if (a == 1) {
-            value += matrix[p + 1][q + 1];
+            value += matrix[p + 1][q + 1];  // count middle value only
             a = 0;
-            continue;
+            continue;                       // skip following row summation
         }
-        for (int j = q; j < d; j++)
+        for (int j = q; j < d; j++)         // iterate column
             value += matrix[i][j];
-        a++;
+        a++;                                // flag indicates first row was counted
     }
-    return value;
+    return value;                           // return sum of glass
 }
