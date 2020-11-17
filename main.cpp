@@ -20,10 +20,9 @@
 using namespace std;
 
 const int MATRIX_SIZE = 6;
-const int SUM_SIZE = 4;
+const int AGGREGATE_MATRIX = MATRIX_SIZE - 2;
 
 int maxHourGlass(vector<vector<int>> matrix);
-int largest(int matrix[][SUM_SIZE]);
 int glassTotal(vector<vector<int>> matrix, int p, int q, int r, int d);
 
 int main()
@@ -41,33 +40,28 @@ int main()
 }
 
 int maxHourGlass(vector<vector<int>> glasses) {
-    int sums[4][SUM_SIZE] = {0};
-    for (int i = 0; i < SUM_SIZE; i++)
-        for (int j = 0; j < SUM_SIZE; j++)
-            sums[i][j] = glassTotal(glasses, i, j,j + 3,i + 3);
-    return largest(sums);
+    int glassSum;
+    int maxGlass = glassTotal(glasses, 0, 0, 3, 3);         // assume firs glass is maxGlass
+    for (int i = 1; i < AGGREGATE_MATRIX; i++)                          // iterate row, start at following glass
+        for (int j = 0; j < AGGREGATE_MATRIX; j++) {                    // iterate column
+            glassSum = glassTotal(glasses, i, j, i + 3, j + 3);   // sum glass
+            if (maxGlass < glassSum)
+                maxGlass = glassSum;                                    // set maxGlass if < than previous glassSum
+        }
+    return maxGlass;
 }
 
 int glassTotal(vector<vector<int>> matrix, int p, int q, int r, int d) {
     int value = 0, a = 0;
-    for (int i = p; i < d; i++) {
+    for (int i = p; i < r; i++) {
         if (a == 1) {
             value += matrix[p + 1][q + 1];
             a = 0;
             continue;
         }
-        for (int j = q; j < r; j++)
+        for (int j = q; j < d; j++)
             value += matrix[i][j];
         a++;
     }
     return value;
-}
-
-int largest(int matrix[][SUM_SIZE]) {
-    int maxGlass = matrix[0][0];
-    for (int row = 0; row < SUM_SIZE; row++)
-        for (int col = 0; col < SUM_SIZE; col++)
-            if (maxGlass < matrix[row][col])
-                maxGlass = matrix[row][col];
-    return maxGlass;
 }
