@@ -1,0 +1,17 @@
+# maxHourGlass
+computes maximum hour glass in a matrix   
+1 1 1 0 0 0  
+0 1 0 0 0 0  
+1 1 1 0 0 0  
+0 0 2 4 4 0  
+0 0 0 2 0 0  
+0 0 1 2 4 0  
+max = 19  
+  
+1 1 1 0 0 0  
+0 1 0 0 0 0  
+1 1 1 0 0 0  
+0 9 2 -4 -4 0  
+0 0 0 -2 0 0  
+0 0 -1 -2 -4 0  
+max = 13  
